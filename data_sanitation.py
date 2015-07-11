@@ -19,12 +19,15 @@ def _is_unfccc_acceptable(value: str) -> bool:
     return True
 
 
+def _is_top_level_char(value: str):
+    return len(value) == 1 and value.isalpha()
+
+
 def _is_acceptable(system: str, value: str) -> bool:
     if system == "UNFCCC":
         return _is_unfccc_acceptable(value)
-    return _is_number(value)
-    # v, _, o = value.partition('/')
-    # return is_number(v) and (o == '' or is_number(o))
+
+    return _is_number(value) or _is_top_level_char(value)
 
 
 def clean_value(system: str, value: str)-> list:
@@ -77,6 +80,8 @@ def clean_value(system: str, value: str)-> list:
         if len(right) <= len(left):
             # right = right[-1:]
             left = left[-len(right):]
+        if left > right:
+            raise ValueError("start of range must be less than end of range, bad value {0}".format(value))
         for i in range(int(left), int(right) + 1):
             format_string = "{0}{1:0" + str(len(right)) + "d}"
             outputs += clean_value(system, format_string.format(base_number, i))
@@ -97,38 +102,3 @@ def clean_value(system: str, value: str)-> list:
     return outputs
 
 
-class TestCleanValue(unittest.TestCase):
-    # TODO make tests to check for UNFCCC badness
-    def test_range(self):
-        test_case = clean_value("SIC4", "14.49-53")
-        self.assertListEqual(test_case, ["14_49", "14_50", "14_51", "14_52", "14_53"])
-
-    def test_smaller_range(self):
-        test_case = clean_value("SIC4", "10.08-11")
-        self.assertListEqual(test_case, ["10_08", "10_09", "10_10", "10_11"])
-
-    def test_remove_other(self):
-        test_case = clean_value("SIC4", "23OTHER")
-        self.assertListEqual(test_case, ["23"])
-
-    def test_not_(self):
-        test_case = clean_value("SIC4", "23.4 not 23.47")
-        self.assertListEqual(test_case,
-                             ["23_4"]
-                             )
-
-    def test_and_(self):
-        test_cast = clean_value("SIC4", "1 & 2")
-        self.assertListEqual(test_cast, ["1", "2"])
-
-    def test_strip_slash(self):
-        test_case = clean_value("SIC4", "23.12/4")
-        self.assertListEqual(test_case, ["23_12"])
-
-    def test_leading_chars(self):
-        test_case = clean_value("SITC4", "A05-A10")
-        self.assertListEqual(test_case, ["05", "06", "07", "08", "09", "10"])
-
-    def test_bad_range(self):
-        #test_case = clean_value("SIC4", "12.5-1")
-        self.assertRaises(ValueError, clean_value, "SIC4", "12.5-1")
