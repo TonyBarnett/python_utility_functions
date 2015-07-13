@@ -1,5 +1,4 @@
 import regex
-import unittest
 
 
 _number_regex = regex.compile('\d+(\.\d+)?')
@@ -76,7 +75,7 @@ def clean_value(system: str, value: str)-> list:
 
         base_number = left[:-len(right)]
         if not _is_number(left) or not _is_number(right):
-            raise ValueError("Both sies of the '-' must be numbers, value {0} not accepted".format(value))
+            raise ValueError("Both sides of the '-' must be numbers, value {0} not accepted".format(value))
         if len(right) <= len(left):
             # right = right[-1:]
             left = left[-len(right):]
