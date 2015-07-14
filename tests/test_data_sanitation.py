@@ -37,8 +37,7 @@ class TestCleanValue(unittest.TestCase):
 
     def test_bad_range(self):
         with self.assertRaises(Exception):
-            x = clean_value("SIC4", "12.5-1")
-            print(1)
+            clean_value("SIC4", "12.5-1")
 
     def test_none(self):
         with self.assertRaises(Exception):
