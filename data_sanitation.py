@@ -99,5 +99,3 @@ def clean_value(system: str, value: str)-> list:
             pass
             # outputs.append(value)
     return outputs
-
-
