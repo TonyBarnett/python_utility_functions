@@ -5,8 +5,8 @@ except ImportError:
 
 
 setup(
-    name="utility functions",
-    packages=["utility_functions"],
+    name="utility_functions",
+    # packages=[""],
     version="0.1",
     description="utility functions",
     long_description="utility functions",
@@ -16,5 +16,5 @@ setup(
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3"
-    ],
+    ], requires=['regex']
 )
