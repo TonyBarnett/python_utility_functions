@@ -6,7 +6,7 @@ except ImportError:
 
 setup(
     name="utility_functions",
-    # packages=[""],
+    packages=["utility_functions"],
     version="0.1",
     description="utility functions",
     long_description="utility functions",

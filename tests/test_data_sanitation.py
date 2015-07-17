@@ -1,6 +1,6 @@
 import unittest
 
-from data_sanitation import clean_value, _is_top_level_char
+from utility_functions.data_sanitation import clean_value, _is_top_level_char
 
 
 class TestCleanValue(unittest.TestCase):
