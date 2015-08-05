@@ -47,6 +47,10 @@ class TestCleanValue(unittest.TestCase):
         test_case = clean_value("SIC4", "B")
         self.assertListEqual(test_case, ["B"])
 
+    def test_with_cpa(self):
+        test_case = clean_value("SIC4", "CPA_02")
+        self.assertListEqual(test_case, ["02"])
+
 
 class TestIsTopLevelChar(unittest.TestCase):
     def test_simple_case(self):
