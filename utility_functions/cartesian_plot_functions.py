@@ -1,8 +1,6 @@
 def _get_yt(y: list) -> float:
-    yt = 0
-    for i, y_i in enumerate(y):
-        yt = yt + y_i
-    return yt
+    yt = sum(y_i for y_i in y)
+    return yt / len(y)
 
 
 def _get_y_minus_y_hat(x: list, y: list, a: float, b: float) -> float:
