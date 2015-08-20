@@ -14,3 +14,9 @@ class RSquared(unittest.TestCase):
     def test_simple_case(self):
         r_s = get_r_squared(self.x, self.y, self.a, self.b)
         self.assertEqual(r_s, 1)
+
+    def test_bad_fit(self):
+        self.a = 4
+        self.b = 2
+        r_s = get_r_squared(self.x, self.y, self.a, self.b)
+        self.assertAlmostEqual(r_s, -7.2)
